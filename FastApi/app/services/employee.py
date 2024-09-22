@@ -1,39 +1,44 @@
+"""
+Este módulo contiene la lógica del servicio para manejar las operaciones de empleados,
+interactuando con el modelo de la base de datos y convirtiendo los datos a modelos Pydantic.
+"""
+
 from typing import List, Optional
 from peewee import DoesNotExist
-from database import EmployeeModel, database
-from models.employee import Employee
+from ..database import EmployeeModel, database  # Asegúrate de que la ruta sea correcta
+from ..models.employee import Employee  # Asegúrate de que la ruta sea correcta
 
 
 class EmployeeService:
-    """Service layer for Employee operations."""
+    """Capa de servicio para las operaciones de empleado."""
 
     @staticmethod
     def get_all_employees() -> List[Employee]:
         """
-        Retrieve all employees from the database.
+        Recupera todos los empleados de la base de datos.
 
         Returns:
-            List[Employee]: A list of employee instances.
+            List[Employee]: Una lista de instancias de empleado.
         """
         try:
             employees = EmployeeModel.select()
             return [
-                Employee.from_orm(employee)  # Convert Peewee model to Pydantic model
+                Employee.from_orm(employee)  # Convierte el modelo de Peewee a modelo de Pydantic
                 for employee in employees
             ]
-        except Exception:
-            return []
+        except DoesNotExist:
+            return []  # O puedes manejar una excepción específica si lo deseas
 
     @staticmethod
     def get_employee_by_id(employee_id: int) -> Optional[Employee]:
         """
-        Retrieve an employee by their ID.
+        Recupera un empleado por su ID.
 
         Args:
-            employee_id (int): The ID of the employee.
+            employee_id (int): El ID del empleado.
 
         Returns:
-            Optional[Employee]: The employee if found, otherwise None.
+            Optional[Employee]: El empleado si se encuentra, de lo contrario None.
         """
         try:
             employee = EmployeeModel.get(EmployeeModel.id == employee_id)
@@ -44,13 +49,13 @@ class EmployeeService:
     @staticmethod
     def create_employee(employee_data: Employee) -> Employee:
         """
-        Create a new employee.
+        Crea un nuevo empleado.
 
         Args:
-            employee_data (Employee): The employee data provided.
+            employee_data (Employee): Los datos del empleado proporcionados.
 
         Returns:
-            Employee: The newly created employee.
+            Employee: El empleado recién creado.
         """
         try:
             database.connect()
@@ -67,14 +72,14 @@ class EmployeeService:
     @staticmethod
     def update_employee(employee_id: int, employee_data: Employee) -> bool:
         """
-        Update an existing employee by their ID.
+        Actualiza un empleado existente por su ID.
 
         Args:
-            employee_id (int): The ID of the employee to update.
-            employee_data (Employee): The new employee data.
+            employee_id (int): El ID del empleado a actualizar.
+            employee_data (Employee): Los nuevos datos del empleado.
 
         Returns:
-            bool: True if the update was successful, otherwise False.
+            bool: True si la actualización fue exitosa, de lo contrario False.
         """
         try:
             employee = EmployeeModel.get(EmployeeModel.id == employee_id)
@@ -90,13 +95,13 @@ class EmployeeService:
     @staticmethod
     def delete_employee(employee_id: int) -> bool:
         """
-        Delete an employee by their ID.
+        Elimina un empleado por su ID.
 
         Args:
-            employee_id (int): The ID of the employee to delete.
+            employee_id (int): El ID del empleado a eliminar.
 
         Returns:
-            bool: True if the employee was deleted, otherwise False.
+            bool: True si el empleado fue eliminado, de lo contrario False.
         """
         try:
             employee = EmployeeModel.get(EmployeeModel.id == employee_id)

@@ -73,13 +73,33 @@ class EmployeeModel(Model):
         database = database
         table_name = "employee"
 
+    def get_department(self):
+        """Devuelve el departamento al que pertenece el empleado."""
+        return self.department_id
+
+
+# Clase para manejar conexiones a la base de datos
+class DatabaseConnection:
+    """Clase para manejar la conexión a la base de datos."""
+
+    @staticmethod
+    def connect():
+        """Conecta a la base de datos."""
+        database.connect()
+
+    @staticmethod
+    def close():
+        """Cierra la conexión a la base de datos."""
+        if not database.is_closed():
+            database.close()
+
 
 # Prueba de conexión a la base de datos
 if __name__ == "__main__":
     try:
-        database.connect()
+        DatabaseConnection.connect()
         print("Conexión a la base de datos exitosa.")
     except DatabaseError as e:
         print(f"Error conectando a la base de datos: {e}")
     finally:
-        database.close()
+        DatabaseConnection.close()
