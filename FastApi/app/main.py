@@ -15,11 +15,16 @@ from starlette.responses import RedirectResponse
 from fastapi import FastAPI
 
 # Importaciones de rutas
-from routes.employee import employee_route  # Asegúrate de que la ruta de importación sea correcta
-from routes.department import department_route  # Asegúrate de que la ruta de importación sea correcta
+from routes.employee import (
+    employee_route,
+)  # Asegúrate de que la ruta de importación sea correcta
+from routes.department import (
+    department_route,
+)  # Asegúrate de que la ruta de importación sea correcta
 
 # Importación de la base de datos
 from database import database as connection  # Ajustar la ruta de importación
+
 
 @asynccontextmanager
 async def lifespan():
@@ -36,8 +41,10 @@ async def lifespan():
         if not connection.is_closed():
             connection.close()  # Cerrar la conexión a la base de datos
 
+
 # Crear una instancia de la aplicación FastAPI
 app = FastAPI(lifespan=lifespan)
+
 
 @app.get("/")
 def read_root() -> RedirectResponse:
@@ -47,6 +54,7 @@ def read_root() -> RedirectResponse:
         RedirectResponse: La respuesta de redirección a la documentación.
     """
     return RedirectResponse(url="/docs")
+
 
 # Inclusión de rutas
 app.include_router(employee_route, prefix="/employees", tags=["Employees"])

@@ -8,7 +8,14 @@ import os
 
 # Importaciones de terceros
 from dotenv import load_dotenv
-from peewee import MySQLDatabase, Model, CharField, AutoField, ForeignKeyField, DatabaseError
+from peewee import (
+    MySQLDatabase,
+    Model,
+    CharField,
+    AutoField,
+    ForeignKeyField,
+    DatabaseError,
+)
 
 # Cargar variables de entorno
 load_dotenv()
@@ -32,6 +39,7 @@ class DepartmentModel(Model):
         name (CharField): Nombre del departamento.
         location (CharField): Ubicación del departamento.
     """
+
     id = AutoField(primary_key=True)
     name = CharField(max_length=100)
     location = CharField(max_length=100)
@@ -52,11 +60,14 @@ class EmployeeModel(Model):
         phone (CharField): Número de teléfono del empleado.
         department_id (ForeignKeyField): Referencia al departamento al que pertenece el empleado.
     """
+
     id = AutoField(primary_key=True)
     name = CharField(max_length=100)
     email = CharField(max_length=100)
     phone = CharField(max_length=20)
-    department_id = ForeignKeyField(DepartmentModel, backref='employees', on_delete='CASCADE')
+    department_id = ForeignKeyField(
+        DepartmentModel, backref="employees", on_delete="CASCADE"
+    )
 
     class Meta:
         database = database
