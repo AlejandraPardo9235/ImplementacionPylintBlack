@@ -44,6 +44,6 @@ pip install -r requirements.txt
 docker compose build 
 ```
 3. Iniciar los contenedores
-   ```bash
+```bash
 docker compose up
 ```
