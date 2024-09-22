@@ -15,11 +15,11 @@ from starlette.responses import RedirectResponse
 from fastapi import FastAPI
 
 # Importaciones de rutas
-from app.routes.employee import employee_route  # Asegúrate de que la ruta de importación sea correcta
-from app.routes.department import department_route  # Asegúrate de que la ruta de importación sea correcta
+from routes.employee import employee_route  # Asegúrate de que la ruta de importación sea correcta
+from routes.department import department_route  # Asegúrate de que la ruta de importación sea correcta
 
 # Importación de la base de datos
-from app.database import database as connection  # Ajustar la ruta de importación
+from database import database as connection  # Ajustar la ruta de importación
 
 @asynccontextmanager
 async def lifespan():
