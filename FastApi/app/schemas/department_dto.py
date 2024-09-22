@@ -8,6 +8,7 @@ department data between different layers of the application.
 from typing import Optional  # Importación estándar
 from pydantic import BaseModel  # Importación de terceros
 
+
 class DepartmentDTO(BaseModel):
     # pylint: disable=too-few-public-methods
     """
@@ -27,4 +28,5 @@ class DepartmentDTO(BaseModel):
         """
         Pydantic configuration class for ORM compatibility.
         """
+
         orm_mode = True

@@ -4,6 +4,7 @@ This module contains the Employee model.
 
 from pydantic import BaseModel
 
+
 class Employee(BaseModel):
     """
     Employee model representing an employee with an id, name, email, phone, and department_id.
@@ -26,4 +27,5 @@ class Employee(BaseModel):
         """
         Configuration for the Employee model to enable ORM mode.
         """
+
         orm_mode = True

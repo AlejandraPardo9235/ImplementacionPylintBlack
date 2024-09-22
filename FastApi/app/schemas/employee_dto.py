@@ -9,6 +9,7 @@ employee data between different layers of the application.
 from typing import Optional  # Importación estándar
 from pydantic import BaseModel  # Importación de terceros
 
+
 class EmployeeDTO(BaseModel):
     """
     DTO for Employee entity. This class represents the data structure
@@ -21,6 +22,7 @@ class EmployeeDTO(BaseModel):
         phone (str): The phone number of the employee.
         department_id (int): The ID of the department to which the employee belongs.
     """
+
     id: Optional[int] = None
     name: str
     email: str
@@ -31,4 +33,5 @@ class EmployeeDTO(BaseModel):
         """
         Pydantic configuration class for ORM compatibility.
         """
+
         orm_mode = True

@@ -18,7 +18,9 @@ class DepartmentService:
         try:
             departments = DepartmentModel.select()
             return [
-                Department.from_orm(department)  # Convert Peewee model to Pydantic model
+                Department.from_orm(
+                    department
+                )  # Convert Peewee model to Pydantic model
                 for department in departments
             ]
         except DoesNotExist:

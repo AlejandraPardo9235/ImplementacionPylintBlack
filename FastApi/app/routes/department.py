@@ -10,10 +10,10 @@ It provides the following routes:
 """
 
 from fastapi import APIRouter, Body, HTTPException
-from app.models.department import (
+from models.department import (
     Department,
 )  # Asegúrate de que la ruta de importación sea correcta
-from app.database import DepartmentModel, database  # Ajustar la ruta de importación
+from database import DepartmentModel, database  # Ajustar la ruta de importación
 from peewee import DoesNotExist
 
 # Create a router object to handle department routes
